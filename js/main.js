@@ -64,32 +64,6 @@ window.addEventListener("keydown", (event) => {
   if (event.key === "Escape") closeMenu();
 });
 
-const cursor = document.querySelector(".cursor-spot");
-if (cursor && !prefersReduced && window.matchMedia("(pointer: fine)").matches) {
-  window.addEventListener("pointermove", (event) => {
-    document.body.style.setProperty("--mx", `${event.clientX}px`);
-    document.body.style.setProperty("--my", `${event.clientY}px`);
-    cursor.style.opacity = "1";
-    cursor.style.left = `${event.clientX}px`;
-    cursor.style.top = `${event.clientY}px`;
-  });
-
-  document.querySelectorAll("a, button, .magnetic").forEach((el) => {
-    el.addEventListener("mouseenter", () => cursor.classList.add("is-active"));
-    el.addEventListener("mouseleave", () => {
-      cursor.classList.remove("is-active");
-      el.style.transform = "";
-    });
-    el.addEventListener("mousemove", (event) => {
-      if (!el.classList.contains("magnetic")) return;
-      const rect = el.getBoundingClientRect();
-      const x = (event.clientX - rect.left - rect.width / 2) * 0.16;
-      const y = (event.clientY - rect.top - rect.height / 2) * 0.16;
-      el.style.transform = `translate(${x}px, ${y}px)`;
-    });
-  });
-}
-
 document.querySelectorAll(".contact-form").forEach((form) => {
   const note = form.querySelector(".form-note");
   form.addEventListener("submit", (event) => {
@@ -119,6 +93,83 @@ document.querySelectorAll(".what-list").forEach((list) => {
       item.classList.add("is-open");
       button.setAttribute("aria-expanded", "true");
     });
+  });
+});
+
+document.querySelectorAll("[data-service-groups]").forEach((group) => {
+  const tabs = Array.from(group.querySelectorAll("[data-group]"));
+  const images = Array.from(group.querySelectorAll("[data-group-image]"));
+
+  const activate = (key) => {
+    tabs.forEach((tab) => {
+      const isActive = tab.dataset.group === key;
+      tab.classList.toggle("is-active", isActive);
+      tab.setAttribute("aria-selected", String(isActive));
+    });
+
+    images.forEach((image) => {
+      image.classList.toggle("is-active", image.dataset.groupImage === key);
+    });
+  };
+
+  tabs.forEach((tab) => {
+    tab.addEventListener("mouseenter", () => activate(tab.dataset.group));
+    tab.addEventListener("focus", () => activate(tab.dataset.group));
+    tab.addEventListener("click", () => activate(tab.dataset.group));
+  });
+});
+
+document.querySelectorAll(".about-faq-item").forEach((item) => {
+  const summary = item.querySelector("summary");
+  const content = item.querySelector("p");
+  let animation;
+
+  if (!summary || !content) return;
+
+  const finishAnimation = (open) => {
+    item.open = open;
+    item.style.height = "";
+    item.style.overflow = "";
+    animation = null;
+  };
+
+  const animateItem = (open) => {
+    if (animation) animation.cancel();
+
+    if (open) {
+      item.open = true;
+      item.style.height = `${summary.offsetHeight}px`;
+      item.style.overflow = "hidden";
+      const targetHeight = item.scrollHeight;
+
+      animation = item.animate(
+        { height: [`${summary.offsetHeight}px`, `${targetHeight}px`] },
+        { duration: 360, easing: "cubic-bezier(.22, 1, .36, 1)" }
+      );
+      animation.onfinish = () => finishAnimation(true);
+      animation.oncancel = () => {
+        animation = null;
+      };
+      return;
+    }
+
+    item.style.height = `${item.offsetHeight}px`;
+    item.style.overflow = "hidden";
+
+    animation = item.animate(
+      { height: [`${item.offsetHeight}px`, `${summary.offsetHeight}px`] },
+      { duration: 300, easing: "cubic-bezier(.22, 1, .36, 1)" }
+    );
+    animation.onfinish = () => finishAnimation(false);
+    animation.oncancel = () => {
+      animation = null;
+    };
+  };
+
+  summary.addEventListener("click", (event) => {
+    if (prefersReduced) return;
+    event.preventDefault();
+    animateItem(!item.open);
   });
 });
 

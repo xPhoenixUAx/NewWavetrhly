@@ -11,7 +11,7 @@
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a><div class="cursor-spot" aria-hidden="true"></div>
-  <header class="site-header" data-header><div class="nav-shell"><a class="header-call magnetic" href="contact.html" aria-label="Book a 30-minute call"><span class="call-avatar" aria-hidden="true"></span><span class="call-arrow"><i data-lucide="arrow-up-right"></i></span><span class="call-copy">A 30-minute call to clarify your next steps. Zero obligations</span></a><a class="brand header-brand" href="index.html" aria-label="NewWavetrhy s.r.o. home"><span class="brand-mark" aria-hidden="true"></span><span class="brand-text">NewWavetrhy <small>s.r.o.</small></span></a><div class="header-actions"><a class="header-cta magnetic" href="contact.html"><span>Get in Touch</span></a><button class="menu-toggle" type="button" aria-label="Open menu" aria-controls="menuOverlay" aria-expanded="false"><span></span><span></span><span></span></button></div></div></header>
+  <header class="site-header" data-header><div class="nav-shell"><a class="header-contact" href="mailto:support@newwavetrhy.com" aria-label="Email NewWavetrhy"><span>Contact</span><strong>support@newwavetrhy.com</strong></a><a class="brand header-brand" href="index.html" aria-label="NewWavetrhy s.r.o. home"><span class="brand-mark" aria-hidden="true"></span><span class="brand-text">NewWavetrhy <small>s.r.o.</small></span></a><div class="header-actions"><a class="header-cta magnetic" href="contact.html"><span>Get in Touch</span></a><button class="menu-toggle" type="button" aria-label="Open menu" aria-controls="menuOverlay" aria-expanded="false"><span></span><span></span><span></span></button></div></div></header>
   <div class="menu-overlay" id="menuOverlay" aria-hidden="true">
   <div class="menu-visual" aria-hidden="true"><img src="img/home/menu-img.webp" alt=""></div>
   <div class="menu-panel">
@@ -24,6 +24,7 @@
       <div class="menu-service-group">
         <button class="service-menu-toggle" type="button" aria-expanded="false" aria-controls="serviceSubmenu"><span><span class="nav-index">02/</span><span class="nav-label">Services</span></span><i data-lucide="chevron-down"></i></button>
         <div class="service-submenu" id="serviceSubmenu">
+          <a href="services.html">All Services</a>
           <a href="service-detail.html">Performance Marketing</a>
           <a href="services.html">Brand Strategy</a>
           <a href="services.html">Landing Pages</a>
@@ -42,57 +43,114 @@
 </div>
 
   <main id="main">
-    <section class="page-hero">
-      <div class="container">
-        <span class="eyebrow reveal">About NewWavetrhy s.r.o.</span>
-        <h1 class="headline-xl" data-split>A focused marketing studio for brands that need clearer growth direction.</h1>
-        <p class="lead reveal">NewWavetrhy s.r.o. exists for companies that have outgrown improvisation. The work is strategic, creative, and operational: clarify the market argument, build the campaign system, then keep improving what the data reveals.</p>
+    <section class="about-hero">
+      <div class="container about-hero-inner">
+        <h1 class="reveal" data-split>About</h1>
+        <nav class="about-breadcrumb reveal" aria-label="Breadcrumb">
+          <a href="index.html">Home</a>
+          <span aria-hidden="true">•</span>
+          <span>About</span>
+        </nav>
       </div>
     </section>
 
-    <section class="section scene-fade">
+    <section class="about-story scene-fade" aria-labelledby="about-story-title">
       <div class="container about-portrait">
-        <div>
-          <span class="eyebrow reveal">Philosophy</span>
-          <h2 class="headline-md" data-split>Marketing should feel less like noise and more like a designed commercial system.</h2>
-          <p class="lead reveal">The company works with businesses that need strategic marketing support without inflated agency theatre. The tone is direct, the process is structured, and the output is built to help founders and teams make better decisions about acquisition, creative, conversion, and reporting.</p>
-          <p class="reveal" style="margin-top:20px;">NewWavetrhy is comfortable operating as a focused strategic studio: senior thinking, careful execution, and a preference for clear systems over large but unfocused activity.</p>
+        <div class="about-portrait-copy">
+          <span class="about-kicker reveal">01/ Philosophy</span>
+          <h2 id="about-story-title" class="reveal" data-split>Marketing should feel less like noise and more like a designed commercial system.</h2>
+          <p class="reveal">NewWavetrhy s.r.o. works with businesses that need strategic marketing support without inflated agency theatre. The tone is direct, the process is structured, and the output is built to help founders and teams make better decisions about acquisition, creative, conversion, and reporting.</p>
+          <p class="reveal">The studio is comfortable operating as a focused growth partner: senior thinking, careful execution, and a preference for clear systems over large but unfocused activity.</p>
         </div>
-        <div class="media-frame reveal" style="min-height: 560px;"><img class="parallax-img" src="img/common/studio-thinking.png" alt="Focused dark studio environment for strategic marketing work"></div>
+        <figure class="about-portrait-media reveal"><img src="img/common/about.webp" alt="Strategic marketing discussion in a modern meeting room"></figure>
       </div>
     </section>
 
-    <section class="section tight scene-fade">
+    <section class="testimonials-section scene-fade" aria-labelledby="about-testimonials-title">
+      <div class="container testimonials-head">
+        <div>
+          <span class="testimonials-kicker reveal">02/ Client perspective</span>
+          <h2 id="about-testimonials-title" class="reveal">What clients value after the work begins</h2>
+        </div>
+        <div class="rating-block reveal" aria-label="Average rating 4.9 out of 5 based on client feedback">
+          <p><span>★★★★★</span> <strong>4.9/5</strong></p>
+          <small>Based on structured project feedback</small>
+        </div>
+      </div>
+      <div class="testimonial-slider reveal" data-testimonial-slider>
+        <div class="testimonial-track">
+          <article class="testimonial-card">
+            <b aria-hidden="true">&ldquo;</b>
+            <p>NewWavetrhy brought the discipline we were missing. Strategy, campaign priorities, and landing page decisions finally moved in the same direction.</p>
+            <footer><strong>Martin K.</strong><span>Managing Director</span></footer>
+          </article>
+          <article class="testimonial-card">
+            <b aria-hidden="true">&ldquo;</b>
+            <p>The collaboration felt senior from the first call. We got honest recommendations, clear sequencing, and reporting that our leadership team could actually use.</p>
+            <footer><strong>Laura P.</strong><span>Founder</span></footer>
+          </article>
+          <article class="testimonial-card">
+            <b aria-hidden="true">&ldquo;</b>
+            <p>They helped us remove noise from the funnel. The result was not just better campaigns, but a cleaner way to understand what should happen next.</p>
+            <footer><strong>Nikolai S.</strong><span>Growth Lead</span></footer>
+          </article>
+          <article class="testimonial-card">
+            <b aria-hidden="true">&ldquo;</b>
+            <p>NewWavetrhy made creative discussions more commercial. Every asset had a purpose, every test had a reason, and every review ended with decisions.</p>
+            <footer><strong>Elena R.</strong><span>Brand Manager</span></footer>
+          </article>
+          <article class="testimonial-card">
+            <b aria-hidden="true">&ldquo;</b>
+            <p>We needed a partner who could connect positioning with acquisition. They gave us a practical system instead of another disconnected marketing plan.</p>
+            <footer><strong>Thomas B.</strong><span>Service Business Owner</span></footer>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="about-faq scene-fade" aria-labelledby="about-faq-title">
+      <div class="container about-faq-grid">
+        <div class="about-faq-head">
+          <span class="about-kicker reveal">03/ Questions</span>
+          <h2 id="about-faq-title" class="reveal" data-split>Clear answers before the first conversation.</h2>
+          <p class="reveal">NewWavetrhy s.r.o. is built for focused collaboration. These are the questions that usually matter before deciding whether the fit is right.</p>
+        </div>
+        <div class="about-faq-list">
+          <details class="about-faq-item reveal" open>
+            <summary><span>What kind of companies does NewWavetrhy s.r.o. work with?</span><i data-lucide="plus"></i></summary>
+            <p>We work best with small and mid-sized companies, premium service businesses, founders, and growing brands that need a more structured approach to positioning, paid acquisition, landing pages, content, and reporting.</p>
+          </details>
+          <details class="about-faq-item reveal">
+            <summary><span>Do you only manage paid campaigns?</span><i data-lucide="plus"></i></summary>
+            <p>No. Paid campaigns are strongest when the strategy, creative, offer, landing page, and measurement system are connected. We can support the full growth system or improve one part when the surrounding structure is already strong.</p>
+          </details>
+          <details class="about-faq-item reveal">
+            <summary><span>Can you work with an existing internal team?</span><i data-lucide="plus"></i></summary>
+            <p>Yes. NewWavetrhy can operate alongside founders, marketers, designers, sales teams, or external specialists. The goal is to bring clearer direction, better execution rhythm, and reporting that helps the team make decisions.</p>
+          </details>
+          <details class="about-faq-item reveal">
+            <summary><span>What happens after the first inquiry?</span><i data-lucide="plus"></i></summary>
+            <p>We review the business context, current marketing activity, priorities, and constraints. If there is a strong fit, the next step is a focused scope: what needs to be built, improved, measured, and optimized first.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-scene about-cta scene-fade">
       <div class="container">
-        <span class="eyebrow reveal">Mission</span>
-        <h2 class="headline-lg" data-split>Help ambitious companies turn attention into clearer demand.</h2>
-        <p class="lead reveal">The differentiator is not one channel or one tactic. It is the connection between strategic clarity, creative quality, landing page discipline, paid acquisition, and reporting. When those parts are designed together, marketing becomes easier to manage and easier to improve.</p>
-        <div class="principles-grid">
-          <article class="principle reveal"><span>01</span><h3>Clarity before scale</h3><p>Scaling unclear messaging usually amplifies the wrong problem. The first step is to define what should be understood.</p></article>
-          <article class="principle reveal"><span>02</span><h3>Creative with a job</h3><p>Every asset needs a role: attract, explain, prove, differentiate, overcome resistance, or invite action.</p></article>
-          <article class="principle reveal"><span>03</span><h3>Conversion as architecture</h3><p>Landing pages and forms are not finishing touches. They are the place where campaign promises become decisions.</p></article>
-          <article class="principle reveal"><span>04</span><h3>Reporting for action</h3><p>Useful reporting shows what changed, what it means, and where the next improvement should happen.</p></article>
+        <div class="cta-heading-block">
+          <span class="cta-kicker reveal">04/ Work with clarity</span>
+          <h2 class="cta-title reveal">A sharper marketing system starts with a clearer conversation</h2>
+        </div>
+        <div class="cta-barcode reveal" aria-hidden="true">
+          <span></span><strong>NewWavetrhy s.r.o.</strong>
+        </div>
+        <div class="cta-copy-block">
+          <p class="reveal">Tell us where your current marketing feels unclear. We will help identify the strategy, campaign structure, creative direction, and reporting rhythm needed for the next stage.</p>
+          <a class="btn btn-primary magnetic reveal" href="contact.html"><span>Start The Conversation</span><i data-lucide="arrow-up-right"></i></a>
         </div>
       </div>
     </section>
-
-    <section class="section fit-section scene-fade">
-      <div class="container fit-grid">
-        <div>
-          <span class="eyebrow reveal">Best client fit</span>
-          <h2 class="headline-md" data-split>Built for serious teams that want a sharper marketing partner.</h2>
-          <p class="lead reveal">NewWavetrhy s.r.o. is best suited to founders, premium service companies, growing SMEs, and brands that need better acquisition quality but also care about how the brand is perceived.</p>
-        </div>
-        <div class="fit-list">
-          <div class="reveal"><h3>Companies with a valuable offer</h3><p>The offer is real, but the market explanation, funnel, or paid acquisition system needs refinement.</p></div>
-          <div class="reveal"><h3>Teams that value direct feedback</h3><p>Good marketing requires choices. NewWavetrhy brings clear recommendations instead of hiding behind vague activity.</p></div>
-          <div class="reveal"><h3>Brands that want premium execution</h3><p>Visual polish matters, but it should support message clarity and commercial movement.</p></div>
-          <div class="reveal"><h3>Businesses ready to measure properly</h3><p>Better tracking and reporting create better conversations about what deserves investment.</p></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="cta-scene scene-fade"><div class="container"><div><span class="eyebrow reveal">Collaboration</span><h2 class="headline-md" data-split>Bring structure to the next growth conversation.</h2><p>Share the stage of your business, what you are trying to improve, and where current marketing activity feels unclear.</p></div><a class="btn btn-primary magnetic reveal" href="contact.html"><span>Contact NewWavetrhy</span><i data-lucide="arrow-up-right"></i></a></div></section>
   </main>
 
   <footer class="site-footer"><div class="container footer-grid"><div class="footer-brand"><a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"></span><span class="brand-text">NewWavetrhy <small>s.r.o.</small></span></a><p>Modern marketing systems for ambitious businesses. Strategy, creative direction, paid acquisition, landing pages, and reporting built to move with precision.</p></div><div class="footer-col"><h3>Pages</h3><a href="index.html">Home</a><a href="services.html">Services</a><a href="about.html">About</a><a href="contact.html">Contact</a></div><div class="footer-col"><h3>Services</h3><a href="service-detail.html">Performance Marketing</a><a href="services.html">Landing Pages</a><a href="services.html">Content Strategy</a><a href="services.html">Analytics</a></div><div class="footer-col"><h3>Contact</h3><a href="mailto:support@newwavetrhy.com">support@newwavetrhy.com</a><span>newwavetrhy.com</span><a href="privacy.html">Privacy Policy</a><a href="privacy.html#cookies">Cookie Policy</a><a href="terms.html">Terms of Service</a></div></div><div class="container footer-bottom"><span>Copyright 2026 NewWavetrhy s.r.o. All rights reserved.</span><span>Clarity, creative direction, measurable execution.</span></div></footer>
