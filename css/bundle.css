@@ -339,6 +339,7 @@
   color: #8d97a4;
   font-size: 0.78rem;
   font-weight: 900;
+  line-height: 1;
 }
 
 .nav-label {
@@ -805,8 +806,13 @@
 
   .nav-index {
     min-width: 36px;
+    display: inline-flex;
+    align-items: center;
+    align-self: center;
     color: #9da8b7;
     font-size: 0.78rem;
+    line-height: 1;
+    transform: translateY(0.08em);
   }
 
   .service-submenu {
