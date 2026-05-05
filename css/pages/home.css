@@ -534,11 +534,11 @@
 
 .service-panel-copy {
   position: absolute;
-  left: clamp(42px, 4.6vw, 88px);
+  right: clamp(28px, 3.2vw, 58px);
   bottom: clamp(36px, 3vw, 54px);
   z-index: 1;
-  width: min(390px, calc(100% - 88px));
-  margin-left: clamp(160px, 16vw, 330px);
+  width: min(330px, calc(100% - 112px));
+  margin-left: 0;
   opacity: 0;
   transform: translateY(22px);
   transition:
@@ -548,18 +548,18 @@
 
 .service-panel-copy p {
   color: rgba(255, 255, 255, 0.76);
-  font-size: clamp(0.95rem, 1.05vw, 1.14rem);
+  font-size: clamp(0.84rem, 0.92vw, 1rem);
   font-weight: 700;
-  line-height: 1.55;
+  line-height: 1.48;
 }
 
 .service-panel-copy em {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 150px;
-  min-height: 48px;
-  margin-top: 28px;
+  min-width: 134px;
+  min-height: 42px;
+  margin-top: 20px;
   border: 1px solid rgba(255, 255, 255, 0.58);
   border-radius: 999px;
   color: rgba(255, 255, 255, 0.82);
@@ -1629,9 +1629,9 @@
   }
 
   .service-panel-copy {
-    left: 34px;
+    right: 34px;
     bottom: 34px;
-    width: calc(100% - 68px);
+    width: min(310px, calc(100% - 68px));
     margin-left: 0;
   }
 
@@ -1902,6 +1902,7 @@
   .service-panel-copy {
     position: relative;
     left: auto;
+    right: auto;
     bottom: auto;
     width: auto;
     margin: 22px 0 0;
