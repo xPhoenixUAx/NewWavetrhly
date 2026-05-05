@@ -154,6 +154,85 @@ function applySiteSettings() {
 
 applySiteSettings();
 
+function initCookieBanner() {
+  const storageKey = "newwavetrhy_cookie_consent";
+  const existingConsent = window.localStorage.getItem(storageKey);
+  if (existingConsent) return;
+
+  const banner = document.createElement("section");
+  banner.className = "cookie-banner";
+  banner.setAttribute("aria-label", "Cookie consent");
+  banner.innerHTML = `
+    <div class="cookie-banner__copy">
+      <span>Cookie preferences</span>
+      <p>We use essential cookies to keep the website working. With your consent, we may also use analytics and marketing cookies to understand performance and improve campaigns.</p>
+      <a href="cookie-policy.html">Read Cookie Policy</a>
+    </div>
+    <div class="cookie-banner__choices" hidden>
+      <label><input type="checkbox" checked disabled> Essential</label>
+      <label><input type="checkbox" data-cookie-category="analytics"> Analytics</label>
+      <label><input type="checkbox" data-cookie-category="marketing"> Marketing</label>
+    </div>
+    <div class="cookie-banner__actions">
+      <button class="cookie-btn cookie-btn--ghost" type="button" data-cookie-action="customize">Customize</button>
+      <button class="cookie-btn cookie-btn--ghost" type="button" data-cookie-action="reject">Reject</button>
+      <button class="cookie-btn cookie-btn--primary" type="button" data-cookie-action="accept">Accept all</button>
+      <button class="cookie-btn cookie-btn--primary" type="button" data-cookie-action="save" hidden>Save choices</button>
+    </div>
+  `;
+
+  const saveConsent = (consent) => {
+    window.localStorage.setItem(
+      storageKey,
+      JSON.stringify({
+        ...consent,
+        essential: true,
+        savedAt: new Date().toISOString(),
+      })
+    );
+    banner.classList.add("is-leaving");
+    window.setTimeout(() => banner.remove(), 260);
+  };
+
+  banner.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-cookie-action]");
+    if (!button) return;
+
+    const choices = banner.querySelector(".cookie-banner__choices");
+    const saveButton = banner.querySelector('[data-cookie-action="save"]');
+    const action = button.dataset.cookieAction;
+
+    if (action === "customize") {
+      choices.hidden = false;
+      saveButton.hidden = false;
+      button.hidden = true;
+      banner.classList.add("is-customizing");
+      return;
+    }
+
+    if (action === "accept") {
+      saveConsent({ analytics: true, marketing: true });
+      return;
+    }
+
+    if (action === "reject") {
+      saveConsent({ analytics: false, marketing: false });
+      return;
+    }
+
+    if (action === "save") {
+      const analytics = banner.querySelector('[data-cookie-category="analytics"]').checked;
+      const marketing = banner.querySelector('[data-cookie-category="marketing"]').checked;
+      saveConsent({ analytics, marketing });
+    }
+  });
+
+  document.body.appendChild(banner);
+  requestAnimationFrame(() => banner.classList.add("is-visible"));
+}
+
+initCookieBanner();
+
 const header = document.querySelector(".site-header");
 const menuToggle = document.querySelector(".menu-toggle");
 const menuOverlay = document.querySelector(".menu-overlay");
@@ -281,7 +360,7 @@ document.querySelectorAll("[data-service-groups]").forEach((group) => {
   });
 });
 
-document.querySelectorAll(".about-faq-item").forEach((item) => {
+document.querySelectorAll(".about-faq-item, .service-faq details").forEach((item) => {
   const summary = item.querySelector("summary");
   const content = item.querySelector("p");
   let animation;

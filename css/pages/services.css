@@ -590,7 +590,8 @@
   }
 
   .services-experience > strong {
-    font-size: clamp(5rem, 28vw, 7.2rem);
+    font-size: clamp(3.4rem, 18vw, 4.8rem);
+    letter-spacing: -0.04em;
   }
 
   .services-experience > span {
@@ -604,7 +605,8 @@
   }
 
   .services-metric strong {
-    font-size: clamp(3rem, 18vw, 4.4rem);
+    font-size: clamp(2.25rem, 12vw, 3.15rem);
+    letter-spacing: -0.03em;
   }
 
   .services-metric p {

@@ -246,28 +246,42 @@
 
 .menu-close {
   position: relative;
-  width: 48px;
-  height: 48px;
-  border: 0;
-  background: transparent;
+  width: 46px;
+  height: 46px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.04);
   color: #fff;
+  transition:
+    border-color 220ms var(--ease),
+    background 220ms var(--ease),
+    transform 220ms var(--ease);
+}
+
+.menu-close:hover,
+.menu-close:focus-visible {
+  border-color: rgba(255, 255, 255, 0.42);
+  background: rgba(255, 255, 255, 0.08);
+  transform: rotate(90deg);
 }
 
 .menu-close span {
   position: absolute;
-  left: 10px;
-  top: 24px;
-  width: 30px;
-  height: 1px;
+  left: 50%;
+  top: 50%;
+  width: 22px;
+  height: 2px;
   background: currentColor;
+  border-radius: 999px;
+  transform-origin: center;
 }
 
 .menu-close span:first-child {
-  transform: rotate(27deg);
+  transform: translate(-50%, -50%) rotate(45deg);
 }
 
 .menu-close span:last-child {
-  transform: rotate(-27deg);
+  transform: translate(-50%, -50%) rotate(-45deg);
 }
 
 .overlay-nav {
@@ -508,6 +522,143 @@
   background: rgba(105, 183, 255, 0.06);
 }
 
+.cookie-banner {
+  position: fixed;
+  left: clamp(16px, 2.2vw, 34px);
+  right: clamp(16px, 2.2vw, 34px);
+  bottom: clamp(16px, 2.2vw, 34px);
+  z-index: 1200;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: clamp(18px, 2.2vw, 34px);
+  align-items: end;
+  max-width: 1120px;
+  margin-inline: auto;
+  padding: clamp(18px, 2vw, 26px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 18px;
+  background: rgba(5, 7, 11, 0.9);
+  color: #fff;
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.38);
+  backdrop-filter: blur(18px);
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 260ms var(--ease),
+    transform 260ms var(--ease);
+}
+
+.cookie-banner.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.cookie-banner.is-leaving {
+  opacity: 0;
+  transform: translateY(18px);
+  pointer-events: none;
+}
+
+.cookie-banner__copy span {
+  display: inline-block;
+  margin-bottom: 8px;
+  color: #ff3035;
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.cookie-banner__copy p {
+  max-width: 720px;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: clamp(0.88rem, 0.95vw, 0.98rem);
+  font-weight: 700;
+  line-height: 1.55;
+}
+
+.cookie-banner__copy a {
+  display: inline-flex;
+  margin-top: 10px;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 0.86rem;
+  font-weight: 900;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.cookie-banner__choices {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 2px;
+}
+
+.cookie-banner__choices[hidden] {
+  display: none;
+}
+
+.cookie-banner__choices label {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 38px;
+  padding: 8px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 0.86rem;
+  font-weight: 900;
+}
+
+.cookie-banner__choices input {
+  accent-color: #ff3035;
+}
+
+.cookie-banner__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.cookie-btn {
+  min-height: 42px;
+  padding: 0 18px;
+  border-radius: 999px;
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 900;
+  cursor: pointer;
+  transition:
+    transform 200ms var(--ease),
+    border-color 200ms var(--ease),
+    background 200ms var(--ease);
+}
+
+.cookie-btn:hover,
+.cookie-btn:focus-visible {
+  transform: translateY(-1px);
+}
+
+.cookie-btn--ghost {
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: transparent;
+  color: #fff;
+}
+
+.cookie-btn--ghost:hover,
+.cookie-btn--ghost:focus-visible {
+  border-color: rgba(255, 255, 255, 0.55);
+}
+
+.cookie-btn--primary {
+  border: 1px solid #ff3035;
+  background: #ff3035;
+  color: #fff;
+}
+
 @media (max-width: 960px) {
   .nav-shell {
     grid-template-columns: auto 1fr auto;
@@ -550,6 +701,15 @@
     flex-direction: column;
   }
 
+  .cookie-banner {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .cookie-banner__actions {
+    justify-content: flex-start;
+  }
+
   .menu-footerline {
     grid-template-columns: 1fr;
     gap: 20px;
@@ -586,27 +746,121 @@
     font-size: 1rem;
   }
 
+  .menu-panel {
+    grid-template-rows: auto auto 1fr;
+    padding: 24px var(--side) 32px;
+    background:
+      radial-gradient(circle at 86% 12%, rgba(255, 48, 53, 0.16), transparent 16rem),
+      radial-gradient(circle at 8% 86%, rgba(105, 183, 255, 0.12), transparent 18rem),
+      #0c0c0d;
+  }
+
+  .menu-topline {
+    min-height: 42px;
+  }
+
+  .menu-close {
+    width: 42px;
+    height: 42px;
+  }
+
+  .menu-close span {
+    left: 50%;
+    top: 50%;
+    width: 20px;
+  }
+
   .overlay-nav {
-    gap: 18px;
+    align-self: start;
+    gap: 17px;
     max-width: none;
-    padding-block: 54px;
+    width: 100%;
+    padding-block: clamp(56px, 16vh, 108px) 32px;
   }
 
   .overlay-nav > a,
   .service-menu-toggle {
-    font-size: clamp(1.65rem, 8vw, 2.45rem);
+    width: fit-content;
+    gap: 16px;
+    font-size: clamp(1.55rem, 7.3vw, 2.16rem);
+    line-height: 1.05;
+  }
+
+  .service-menu-toggle {
+    position: static;
+    display: flex;
+  }
+
+  .service-menu-toggle > span {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
   }
 
   .overlay-nav .service-submenu a {
-    font-size: 1rem;
+    width: 100%;
+    padding: 5px 0;
+    font-size: 0.92rem;
   }
 
   .nav-index {
-    min-width: 34px;
+    min-width: 36px;
+    color: #9da8b7;
+    font-size: 0.78rem;
   }
 
   .service-submenu {
+    gap: 6px;
     padding-left: 52px;
+  }
+
+  .menu-service-group.is-open .service-submenu {
+    max-height: 230px;
+    padding-top: 12px;
+  }
+
+  .service-menu-toggle svg {
+    position: static;
+    width: 16px;
+    height: 16px;
+    margin-left: 2px;
+  }
+
+  .menu-footerline {
+    align-self: end;
+    gap: 14px;
+    padding-top: 26px;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .menu-footerline div:nth-child(2),
+  .menu-footerline div:nth-child(3) {
+    display: none;
+  }
+
+  .menu-footerline strong {
+    margin-bottom: 6px;
+    color: #ff3035;
+    font-size: 0.86rem;
+    text-transform: uppercase;
+  }
+
+  .menu-footerline span {
+    display: block;
+    max-width: 270px;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.82rem;
+    line-height: 1.45;
+  }
+
+  .menu-footerline::after {
+    content: "Explore structured growth paths with clarity, creative direction, and measurable execution.";
+    display: block;
+    max-width: 310px;
+    color: rgba(255, 255, 255, 0.62);
+    font-size: 0.82rem;
+    font-weight: 700;
+    line-height: 1.5;
   }
 
   .cta-scene .btn {
@@ -615,6 +869,21 @@
 
   .cursor-spot {
     display: none;
+  }
+
+  .cookie-banner {
+    padding: 16px;
+    border-radius: 16px;
+  }
+
+  .cookie-banner__actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+  }
+
+  .cookie-btn {
+    width: 100%;
   }
 }
 
