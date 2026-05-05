@@ -1,10 +1,158 @@
 const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const siteSettings = window.siteSettings || {};
 
 document.documentElement.classList.add("js");
 
 if (window.lucide) {
   window.lucide.createIcons({ strokeWidth: 1.8 });
 }
+
+function applySiteSettings() {
+  if (!siteSettings || !Object.keys(siteSettings).length) return;
+
+  const defaults = {
+    companyName: "NewWavetrhy s.r.o.",
+    companyShortName: "NewWavetrhy",
+    companyLegalSuffix: "s.r.o.",
+    email: "support@newwavetrhy.com",
+    website: "newwavetrhy.com",
+  };
+
+  const companyName = siteSettings.companyName || defaults.companyName;
+  const companyShortName = siteSettings.companyShortName || companyName;
+  const companyLegalSuffix = siteSettings.companyLegalSuffix || "";
+  const email = siteSettings.email || defaults.email;
+  const website = siteSettings.website || defaults.website;
+  const phone = siteSettings.phone || "";
+  const phoneButtonLabel = siteSettings.phoneButtonLabel || phone;
+  const footerDescription = siteSettings.footerDescription || "";
+  const footerBottomLine = siteSettings.footerBottomLine || "";
+  const copyrightYear = siteSettings.copyrightYear || new Date().getFullYear();
+  const address = siteSettings.companyAddress || "";
+  const companyId = siteSettings.companyId || "";
+  const brandHtml = `${companyShortName}${companyLegalSuffix ? ` <small>${companyLegalSuffix}</small>` : ""}`;
+  const footerCompanyParts = [companyName, address, companyId ? `ID: ${companyId}` : ""].filter(Boolean);
+  const configValues = {
+    companyName,
+    companyShortName,
+    companyLegalSuffix,
+    companyAddress: address,
+    companyId,
+    email,
+    website,
+    phone,
+    phoneButtonLabel,
+    footerDescription,
+    footerBottomLine,
+    copyrightYear: String(copyrightYear),
+  };
+
+  document.querySelectorAll(".brand-text").forEach((element) => {
+    element.innerHTML = brandHtml;
+  });
+
+  document.querySelectorAll(".header-contact").forEach((link) => {
+    link.href = `mailto:${email}`;
+    link.setAttribute("aria-label", `Email ${companyShortName}`);
+    link.querySelector("strong") && (link.querySelector("strong").textContent = email);
+  });
+
+  document.querySelectorAll('a[href^="mailto:"]').forEach((link) => {
+    link.href = `mailto:${email}`;
+    if (link.textContent.trim().includes(defaults.email)) link.textContent = email;
+  });
+
+  document.querySelectorAll('a[href^="tel:"], [data-config-phone-link]').forEach((link) => {
+    if (!phone) return;
+    link.href = `tel:${phone.replace(/[^\d+]/g, "")}`;
+  });
+
+  document.querySelectorAll("[data-config-phone-label]").forEach((element) => {
+    element.textContent = phoneButtonLabel;
+  });
+
+  document.querySelectorAll("[data-config]").forEach((element) => {
+    const key = element.dataset.config;
+    const value = configValues[key];
+    if (!value) return;
+
+    element.textContent = value;
+
+    if (element instanceof HTMLAnchorElement) {
+      if (key === "email") element.href = `mailto:${email}`;
+      if (key === "phone") element.href = `tel:${phone.replace(/[^\d+]/g, "")}`;
+      if (key === "website") {
+        const url = website.startsWith("http") ? website : `https://${website}`;
+        element.href = url;
+      }
+    }
+  });
+
+  document.querySelectorAll(".menu-footerline div:first-child strong").forEach((element) => {
+    element.textContent = email;
+  });
+
+  document.querySelectorAll(".menu-footerline div:first-child span").forEach((element) => {
+    element.textContent = companyName;
+  });
+
+  document.querySelectorAll(".footer-brand p").forEach((element) => {
+    if (footerDescription) element.textContent = footerDescription;
+  });
+
+  document.querySelectorAll(".footer-col").forEach((column) => {
+    const heading = column.querySelector("h3");
+    if (heading?.textContent.trim().toLowerCase() !== "contact") return;
+
+    const emailLink = column.querySelector('a[href^="mailto:"]');
+    if (emailLink) {
+      emailLink.href = `mailto:${email}`;
+      emailLink.textContent = email;
+    }
+
+    const websiteLine = Array.from(column.querySelectorAll("span")).find((span) =>
+      span.textContent.includes(defaults.website)
+    );
+    if (websiteLine) websiteLine.textContent = website;
+  });
+
+  document.querySelectorAll(".footer-bottom span:first-child").forEach((element) => {
+    element.textContent = `Copyright ${copyrightYear} ${footerCompanyParts.join(" · ")}. All rights reserved.`;
+  });
+
+  document.querySelectorAll(".footer-bottom span:last-child").forEach((element) => {
+    if (footerBottomLine) element.textContent = footerBottomLine;
+  });
+
+  const replacements = [
+    [defaults.email, email],
+    [defaults.website, website],
+    [defaults.companyName, companyName],
+  ].filter(([from, to]) => from && to && from !== to);
+
+  if (replacements.length) {
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+      acceptNode(node) {
+        if (!node.nodeValue?.trim()) return NodeFilter.FILTER_REJECT;
+        if (node.parentElement?.closest("script, style")) return NodeFilter.FILTER_REJECT;
+        return replacements.some(([from]) => node.nodeValue.includes(from))
+          ? NodeFilter.FILTER_ACCEPT
+          : NodeFilter.FILTER_REJECT;
+      },
+    });
+
+    const textNodes = [];
+    while (walker.nextNode()) textNodes.push(walker.currentNode);
+
+    textNodes.forEach((node) => {
+      replacements.forEach(([from, to]) => {
+        node.nodeValue = node.nodeValue.split(from).join(to);
+      });
+    });
+  }
+}
+
+applySiteSettings();
 
 const header = document.querySelector(".site-header");
 const menuToggle = document.querySelector(".menu-toggle");
@@ -74,6 +222,20 @@ document.querySelectorAll(".contact-form").forEach((form) => {
     }
     form.reset();
   });
+});
+
+document.querySelectorAll(".contact-send-form").forEach((form) => {
+  const note = form.querySelector(".php-form-note");
+  const status = new URLSearchParams(window.location.search).get("form");
+  if (!note || !status) return;
+
+  const messages = {
+    sent: "Thank you. Your message has been sent.",
+    invalid: "Please check the required fields and try again.",
+    error: "The message could not be sent. Please email us directly.",
+  };
+
+  note.textContent = messages[status] || "";
 });
 
 document.querySelectorAll(".what-list").forEach((list) => {
