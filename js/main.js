@@ -297,7 +297,9 @@ document.querySelectorAll(".contact-form").forEach((form) => {
     event.preventDefault();
     const email = form.querySelector("[name='email']")?.value || "";
     if (note) {
-      note.textContent = `Thank you. Your inquiry is ready for NewWavetrhy s.r.o. Please email support@newwavetrhy.com if you would like to attach files from ${email}.`;
+      const companyName = siteSettings.companyName || "NewWavetrhy s.r.o.";
+      const contactEmail = siteSettings.email || "support@newwavetrhy.com";
+      note.textContent = `Thank you. Your inquiry is ready for ${companyName}. Please email ${contactEmail} if you would like to attach files from ${email}.`;
     }
     form.reset();
   });
